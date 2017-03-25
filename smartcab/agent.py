@@ -51,9 +51,9 @@ class LearningAgent(Agent):
         if testing == True:
             self.alpha = 0
             self.epsilon = 0
-        else:            
-            #self.epsilon -= 1/(self.trial^2)
-            if Optimized:
+        else:
+            #self.epsilon = self.epsilon -0.05
+            if Optimized == True:
                 self.epsilon = self.epsilon -0.00025 * self.trial
             else:
                 self.epsilon = self.epsilon -0.05
@@ -74,8 +74,9 @@ class LearningAgent(Agent):
         ## TO DO ##
         ###########
         # Set 'state' as a tuple of relevant data for the agent        
-        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left']) # , inputs['right']
-
+        state = (waypoint, inputs['light'], inputs['oncoming'], inputs['left'])#, inputs['right'])
+        print(state)
+        
         return state
 
 
@@ -194,20 +195,7 @@ def run():
     #   learning   - set to True to force the driving agent to use Q-learning
     #    * epsilon - continuous value for the exploration factor, default is 1
     #    * alpha   - continuous value for the learning rate, default is 0.5
-
-    ## RESULTS:
-    ## Safety A+ / Reliability C
-    # agent = env.create_agent(LearningAgent, learning=True, epsilon=0.7, alpha=0.3) 
-
-    ## Safety A+ / Reliability A [1st time]
-    ## Safety A+ / Reliability B [2nd time]
-    # agent = env.create_agent(LearningAgent, learning=True, epsilon=0.7, alpha=0.5) 
-    
-    ## Safety A+ / Reliability B
-    #agent = env.create_agent(LearningAgent, learning=True, epsilon=0.7, alpha=0.7)
-    
-    ## Safety A+ / Reliability A+
-    agent = env.create_agent(LearningAgent, learning=True, epsilon=0.5, alpha=0.5)
+    agent = env.create_agent(LearningAgent, learning=True, epsilon=1.0, alpha=0.5)
     
     ##############
     # Follow the driving agent
